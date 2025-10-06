@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "970565552976",
+    "project_id": "railcargo-4865e",
+    "storage_bucket": "railcargo-4865e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970565552976:android:22299b162ab98f9892ba55",
+        "android_client_info": {
+          "package_name": "com.example.rail_cargo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA17RTaGexk05PVc-H4iyd2MGthPpmXTes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
