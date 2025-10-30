@@ -4,42 +4,81 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Dashboard"),
-        backgroundColor: Colors.teal,
+      appBar: AppBar(
+        title: Text("Dashboard"),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.notifications_rounded)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/profile'),
+              child: Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blueGrey,
+                ),
+                child: Icon(Icons.person),
+              ),
+            ),
+          ),
+        ],
       ),
-      bottomNavigationBar: BottomNavigationBar(items: [
-        //Home page
-        BottomNavigationBarItem(icon: Icon( Icons.home),
-          label: 'Home',
-        ),
-        //Settings page
-        BottomNavigationBarItem(icon: Icon(Icons.settings),
-          label: 'Settings',
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.person),
-            label: 'Profile'
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.store),
-        label: 'Services'
-        ),
-
-      ]),
-
-      body: GridView.count(
-        crossAxisCount: 2,
-        padding: EdgeInsets.all(20),
+      body: ListView(
         children: [
-          DashboardCard("Cargo", Icons.inventory, '/cargo', context),
-          DashboardCard("Tracking", Icons.map, '/tracking', context),
-          DashboardCard("Storage", Icons.store, '/storage', context),
-          DashboardCard("Payments", Icons.payment, '/payments', context),
-          DashboardCard("Profile", Icons.person, '/profile', context),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('Active Shipments'),
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('1234'),
+                      Row(
+                        children: [
+                          Text('Lusaka'),
+                          Icon(Icons.arrow_forward),
+                          Text('Ndola'),
+                        ],
+                      ),
+                      Text('In transit'),
+                    ],
+                  ),
+                  TextButton(onPressed: () {}, child: Text('View Shipments')),
+                ],
+              ),
+            ),
+          ),
+          GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            padding: EdgeInsets.all(20),
+            children: [
+              DashboardCard("Cargo", Icons.inventory, '/cargo', context),
+              DashboardCard("Tracking", Icons.map, '/tracking', context),
+              DashboardCard("Schedule", Icons.store, '/storage', context),
+              DashboardCard("Payments", Icons.payment, '/payments', context),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget DashboardCard(String title, IconData icon, String route, BuildContext context) {
+  Widget DashboardCard(
+    String title,
+    IconData icon,
+    String route,
+    BuildContext context,
+  ) {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, route);

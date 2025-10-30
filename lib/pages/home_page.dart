@@ -1,42 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rail_cargo/pages/dashboard_page.dart';
+import 'package:rail_cargo/pages/settings_page.dart';
+import 'package:rail_cargo/pages/storage_page.dart';
+import 'package:rail_cargo/pages/tracking_page.dart';
 
 class HomePage extends StatefulWidget {
-  
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  void logout() async{
-    await FirebaseAuth.instance.signOut();
+  int _selectedIndex = 0;
+
+  void navigateBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
+
+  List<Widget> _pages = [
+    DashboardPage(),
+    StoragePage(),
+    TrackingPage(),
+    SettingsPage()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-        actions: [IconButton(onPressed: logout, icon: Icon(Icons.exit_to_app))],
-        backgroundColor: Colors.teal,
-      ),
-        body: Center(child: Text("services"))
-    );
-    bottomNavigationBar: BottomNavigationBar(items: [
-      //Home page
-      BottomNavigationBarItem(icon: Icon( Icons.home),
-        label: 'Home',
-      ),
-      //Settings page
-      BottomNavigationBarItem(icon: Icon(Icons.settings),
-        label: 'Settings',
-      ),
-      BottomNavigationBarItem(icon: Icon(Icons.person),
-          label: 'Profile'
-      ),
-      BottomNavigationBarItem(icon: Icon(Icons.store),
-          label: 'Services'
-      ),
 
-    ]);
+      body: _pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: navigateBar,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics_outlined),
+            label: 'Cargo',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: 'Services'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+      ),
+    );
   }
 }
